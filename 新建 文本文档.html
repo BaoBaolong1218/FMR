@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>伐木人足球队 - 大学俱乐部</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  
+  <!-- 配置Tailwind自定义颜色 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#E63946', // 红色主色调
+            secondary: '#457B9D', // 辅助色
+            accent: '#1D3557',    // 强调色
+            forest: '#2A9D8F',    // 绿色
+            wood: '#E9C46A',      // 木材色
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      }
+    }
+  </script>
+  
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+      .text-shadow {
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      }
+      .logo-large {
+        height: 180px;
+        width: 180px;
+      }
+      .logo-small {
+        height: 80px;
+        width: 80px;
+      }
+      .player-card-hover {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .player-card-hover:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 font-sans">
+  <!-- 顶部导航栏 -->
+  <header id="navbar" class="fixed w-full top-0 z-50 transition-all duration-300 bg-gradient-to-r from-primary to-forest">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+      <!-- Logo区域 -->
+      <div class="flex items-center">
+        <div id="logo-container" class="transition-all duration-300 mr-4">
+          <div class="bg-white rounded-lg flex items-center justify-center overflow-hidden border-4 border-wood">
+            <!-- 球队Logo占位 -->
+            <div class="w-full h-full flex items-center justify-center">
+              <i class="fa fa-tree text-forest text-4xl mr-2"></i>
+              <i class="fa fa-axe text-accent text-4xl"></i>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h1 class="text-white text-2xl md:text-3xl font-bold text-shadow">伐木人足球队</h1>
+          <p class="text-white/80 text-sm hidden md:block">大学足球俱乐部</p>
+        </div>
+      </div>
+      
+      <!-- 导航菜单 - 桌面版 -->
+      <nav class="hidden md:flex items-center space-x-6">
+        <a href="#" class="text-white hover:text-wood transition-colors duration-200 font-medium">首页</a>
+        <a href="#team" class="text-white hover:text-wood transition-colors duration-200 font-medium">球队</a>
+        <a href="#matches" class="text-white hover:text-wood transition-colors duration-200 font-medium">赛事</a>
+        <a href="#training" class="text-white hover:text-wood transition-colors duration-200 font-medium">训练</a>
+        <a href="#videos" class="text-white hover:text-wood transition-colors duration-200 font-medium">视频</a>
+        <a href="#club" class="text-white hover:text-wood transition-colors duration-200 font-medium">俱乐部</a>
+      </nav>
+      
+      <!-- 移动端菜单按钮 -->
+      <button id="mobile-menu-button" class="md:hidden text-white text-2xl">
+        <i class="fa fa-bars"></i>
+      </button>
+    </div>
+    
+    <!-- 移动端导航菜单 -->
+    <div id="mobile-menu" class="md:hidden hidden bg-accent/95 backdrop-blur-sm">
+      <div class="container mx-auto px-4 py-3 flex flex-col space-y-3">
+        <a href="#" class="text-white hover:text-wood transition-colors duration-200 py-2 border-b border-white/10">首页</a>
+        <a href="#team" class="text-white hover:text-wood transition-colors duration-200 py-2 border-b border-white/10">球队</a>
+        <a href="#matches" class="text-white hover:text-wood transition-colors duration-200 py-2 border-b border-white/10">赛事</a>
+        <a href="#training" class="text-white hover:text-wood transition-colors duration-200 py-2 border-b border-white/10">训练</a>
+        <a href="#videos" class="text-white hover:text-wood transition-colors duration-200 py-2 border-b border-white/10">视频</a>
+        <a href="#club" class="text-white hover:text-wood transition-colors duration-200 py-2">俱乐部</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 英雄区域 -->
+  <section class="pt-32 pb-20 md:pt-40 md:pb-28 bg-gradient-to-b from-accent to-accent/80 text-white">
+    <div class="container mx-auto px-4 flex flex-col items-center text-center">
+      <h2 class="text-3xl md:text-5xl font-bold mb-6 text-shadow">团结 · 拼搏 · 成长</h2>
+      <p class="text-lg md:text-xl max-w-2xl mb-8 text-white/90">
+        我们是伐木人，像森林一样团结，像斧头一样锐利，在绿茵场上挥洒青春与汗水
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="#team" class="bg-primary hover:bg-primary/90 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl">
+          认识队员
+        </a>
+        <a href="#matches" class="bg-wood hover:bg-wood/90 text-accent font-semibold py-3 px-6 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl">
+          近期赛事
+        </a>
+      </div>
+      
+      <!-- 装饰元素 - 斧头和树木 -->
+      <div class="hidden md:flex absolute -bottom-6 left-1/4 transform -translate-x-1/2 text-wood/30 text-5xl">
+        <i class="fa fa-tree"></i>
+      </div>
+      <div class="hidden md:flex absolute -bottom-6 right-1/4 transform translate-x-1/2 text-wood/30 text-5xl">
+        <i class="fa fa-axe"></i>
+      </div>
+    </div>
+  </section>
+
+  <!-- 球队成员部分 -->
+  <section id="team" class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-accent mb-4">球队成员</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">我们的队伍由各个年级的足球爱好者组成，共同为热爱而战</p>
+      </div>
+      
+      <!-- 22级队员 -->
+      <div class="mb-16">
+        <div class="flex items-center mb-8">
+          <div class="w-12 h-1 bg-primary mr-4"></div>
+          <h3 class="text-2xl font-bold text-accent">22级队员</h3>
+        </div>
+        
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+          <!-- 队员卡片1 -->
+          <div class="bg-white rounded-xl shadow-md overflow-hidden player-card-hover">
+            <div class="bg-gray-200 h-48 flex items-center justify-center">
+              <img src="           " alt="队员照片" class="w-full h-full object-cover">
+            </div>
+            <div class="p-4 text-center">
+              <h4 class="font-bold text-accent">张明</h4>
+              <p class="text-sm text-gray-500">前锋</p>
+            </div>
+          </div>
+          
+          <!-- 队员卡片2 -->
+          <div class="bg-white rounded-xl shadow-md overflow-hidden player-card-hover">
+            <div class="bg-gray-200 h-48 flex items-center justify-center">
+              <img src="                 " alt="队员照片" class="w-full h-full object-cover">
+            </div>
+            <div class="p-4 text-center">
+              <h4 class="font-bold text-accent">李华</h4>
+              <p class="text-sm text-gray-500">中场</p>
+            </div>
+          </div>
+          
+          <!-- 队员卡片3 -->
+          <div class="bg-white rounded-xl shadow-md overflow-hidden player-card-hover">
+            <div class="bg-gray-200 h-48 flex items-center justify-center">
+              <img src="                   " alt="队员照片" class="w-full h-full object-cover">
+            </div>
+            <div class="p-4 text-center">
+              <h4 class="font-bold text-accent">王强</h4>
+              <p class="text-sm text-gray-500">后卫</p>
+            </div>
+          </div>
+          
+          <!-- 队员卡片4 -->
+          <div class="bg-white rounded-xl shadow-md overflow-hidden player-card-hover">
+            <div class="bg-gray-200 h-48 flex items-center justify-center">
+              <img src="                  " alt="队员照片" class="w-full h-full object-cover">
+            </div>
+            <div class="p-4 text-center">
+              <h4 class="font-bold text-accent">赵伟</h4>
+              <p class="text-sm text-gray-500">门将</p>
+            </div>
+          </div>
+          
+          <!-- 队员卡片5（空） -->
+          <div class="bg-white rounded-xl shadow-md overflow-hidden player-card-hover border-2 border-dashed border-gray-300">
+            <div class="bg-gray-50 h-48 flex items-center justify-center">
+              <i class="fa fa-user-plus text-gray-400 text-3xl"></i>
+            </div>
+            <div class="p-4 text-center">
+              <h4 class="font-bold text-gray-400">待加入</h4>
+              <p class="text-sm text-gray-300">队员位置</p>
+            </div>
+          </div>
+          
+          <!-- 队员卡片6（空） -->
+          <div class="bg-white rounded-xl shadow-md overflow-hidden player-card-hover border-2 border-dashed border-gray-300">
+            <div class="bg-gray-50 h-48 flex items-center justify-center">
+              <i class="fa fa-user-plus text-gray-400 text-3xl"></i>
+            </div>
+            <div class="p-4 text-center">
+              <h4 class="font-bold text-gray-400">待加入</h4>
+              <p class="text-sm text-gray-300">队员位置</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 23级队员 -->
+      <div class="mb-16">
+        <div class="flex items-center mb-8">
+          <div class="w-12 h-1 bg-forest mr-4"></div>
+          <h3 class="text-2xl font-bold text-accent">23级队员</h3>
+        </div>
+        
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+          <!-- 队员卡片1 -->
+          <div class="bg-white rounded-xl shadow-md overflow-hidden player-card-hover">
+            <div class="bg-gray-200 h-48 flex items-center justify-center">
+              <img src="                 " alt="队员照片" class="w-full h-full object-cover">
+            </div>
+            <div class="p-4 text-center">
+              <h4 class="font-bold text-accent">陈杰</h4>
+              <p class="text-sm text-gray-500">中场</p>
+            </div>
+          </div>
+          
+          <!-- 队员卡片2 -->
+          <div class="bg-white rounded-xl shadow-md overflow-hidden player-card-hover">
+            <div class="bg-gray-200 h-48 flex items-center justify-center">
+              <img src="                      " alt="队员照片" class="w-full h-full object-cover">
+            </div>
+            <div class="p-4 text-center">
+              <h4 class="font-bold text-accent">刘洋</h4>
+              <p class="text-sm text-gray-500">前锋</p>
+            </div>
+          </div>
+          
+          <!-- 队员卡片3 -->
+          <div class="bg-white rounded-xl shadow-md overflow-hidden player-card-hover">
+            <div class="bg-gray-200 h-48 flex items-center justify-center">
+              <img src="                      " alt="队员照片" class="w-full h-full object-cover">
+            </div>
+            <div class="p-4 text-center">
+              <h4 class="font-bold text-accent">孙浩</h4>
+              <p class="text-sm text-gray-500">后卫</p>
+            </div>
+          </div>
+          
+          <!-- 队员卡片4（空） -->
+          <div class="bg-white rounded-xl shadow-md overflow-hidden player-card-hover border-2 border-dashed border-gray-300">
+            <div class="bg-gray-50 h-48 flex items-center justify-center">
+              <i class="fa fa-user-plus text-gray-400 text-3xl"></i>
+            </div>
+            <div class="p-4 text-center">
+              <h4 class="font-bold text-gray-400">待加入</h4>
+              <p class="text-sm text-gray-300">队员位置</p>
+            </div>
+          </div>
+          
+          <!-- 队员卡片5（空） -->
+          <div class="bg-white rounded-xl shadow-md overflow-hidden player-card-hover border-2 border-dashed border-gray-300">
+            <div class="bg-gray-50 h-48 flex items-center justify-center">
+              <i class="fa fa-user-plus text-gray-400 text-3xl"></i>
+            </div>
+            <div class="p-4 text-center">
+              <h4 class="font-bold text-gray-400">待加入</h4>
+              <p class="text-sm text-gray-300">队员位置</p>
+            </div>
+          </div>
+          
+          <!-- 队员卡片6（空） -->
+          <div class="bg-white rounded-xl shadow-md overflow-hidden player-card-hover border-2 border-dashed border-gray-300">
+            <div class="bg-gray-50 h-48 flex items-center justify-center">
+              <i class="fa fa-user-plus text-gray-400 text-3xl"></i>
+            </div>
+            <div class="p-4 text-center">
+              <h4 class="font-bold text-gray-400">待加入</h4>
+              <p class="text-sm text-gray-300">队员位置</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 24级队员 -->
+      <div>
+        <div class="flex items-center mb-8">
+          <div class="w-12 h-1 bg-wood mr-4"></div>
+          <h3 class="text-2xl font-bold text-accent">24级队员</h3>
+        </div>
+        
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+          <!-- 队员卡片1（空） -->
+          <div class="bg-white rounded-xl shadow-md overflow-hidden player-card-hover border-2 border-dashed border-gray-300">
+            <div class="bg-gray-50 h-48 flex items-center justify-center">
+              <i class="fa fa-user-plus text-gray-400 text-3xl"></i>
+            </div>
+            <div class="p-4 text-center">
+              <h4 class="font-bold text-gray-400">待加入</h4>
+              <p class="text-sm text-gray-300">队员位置</p>
+            </div>
+          </div>
+          
+          <!-- 队员卡片2（空） -->
+          <div class="bg-white rounded-xl shadow-md overflow-hidden player-card-hover border-2 border-dashed border-gray-300">
+            <div class="bg-gray-50 h-48 flex items-center justify-center">
+              <i class="fa fa-user-plus text-gray-400 text-3xl"></i>
+            </div>
+            <div class="p-4 text-center">
+              <h4 class="font-bold text-gray-400">待加入</h4>
+              <p class="text-sm text-gray-300">队员位置</p>
+            </div>
+          </div>
+          
+          <!-- 队员卡片3（空） -->
+          <div class="bg-white rounded-xl shadow-md overflow-hidden player-card-hover border-2 border-dashed border-gray-300">
+            <div class="bg-gray-50 h-48 flex items-center justify-center">
+              <i class="fa fa-user-plus text-gray-400 text-3xl"></i>
+            </div>
+            <div class="p-4 text-center">
+              <h4 class="font-bold text-gray-400">待加入</h4>
+              <p class="text-sm text-gray-300">队员位置</p>
+            </div>
+          </div>
+          
+          <!-- 队员卡片4（空） -->
+          <div class="bg-white rounded-xl shadow-md overflow-hidden player-card-hover border-2 border-dashed border-gray-300">
+            <div class="bg-gray-50 h-48 flex items-center justify-center">
+              <i class="fa fa-user-plus text-gray-400 text-3xl"></i>
+            </div>
+            <div class="p-4 text-center">
+              <h4 class="font-bold text-gray-400">待加入</h4>
+              <p class="text-sm text-gray-300">队员位置</p>
+            </div>
+          </div>
+          
+          <!-- 队员卡片5（空） -->
+          <div class="bg-white rounded-xl shadow-md overflow-hidden player-card-hover border-2 border-dashed border-gray-300">
+            <div class="bg-gray-50 h-48 flex items-center justify-center">
+              <i class="fa fa-user-plus text-gray-400 text-3xl"></i>
+            </div>
+            <div class="p-4 text-center">
+              <h4 class="font-bold text-gray-400">待加入</h4>
+              <p class="text-sm text-gray-300">队员位置</p>
+            </div>
+          </div>
+          
+          <!-- 队员卡片6（空） -->
+          <div class="bg-white rounded-xl shadow-md overflow-hidden player-card-hover border-2 border-dashed border-gray-300">
+            <div class="bg-gray-50 h-48 flex items-center justify-center">
+              <i class="fa fa-user-plus text-gray-400 text-3xl"></i>
+            </div>
+            <div class="p-4 text-center">
+              <h4 class="font-bold text-gray-400">待加入</h4>
+              <p class="text-sm text-gray-300">队员位置</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+ <!-- 比赛结果部分 -->
+<section id="results" class="py-16 bg-gradient-to-b from-white to-gray-100">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl font-bold text-accent mb-4">比赛结果</h2>
+      <p class="text-gray-600 max-w-2xl mx-auto">我们的赛场表现，每一场都是团队努力的见证</p>
+    </div>
+    
+    <div class="bg-white rounded-2xl shadow-lg overflow-hidden max-w-4xl mx-auto">
+      <div class="p-6 md:p-8">
+        <div class="space-y-6">
+          <div class="flex flex-col md:flex-row md:items-center p-4 border-b border-gray-100">
+            <div class="md:w-1/4 font-semibold text-accent">10月1日</div>
+            <div class="md:w-2/4 flex flex-wrap items-center justify-center md:justify-start gap-2 my-2 md:my-0">
+              <span>伐木人</span>
+              <span class="font-bold">3</span>
+              <span>-</span>
+              <span class="font-bold">1</span>
+              <span>计算机学院</span>
+            </div>
+            <div class="md:w-1/4 text-right text-primary font-medium">胜</div>
+          </div>
+          
+          <div class="flex flex-col md:flex-row md:items-center p-4 border-b border-gray-100">
+            <div class="md:w-1/4 font-semibold text-accent">10月8日</div>
+            <div class="md:w-2/4 flex flex-wrap items-center justify-center md:justify-start gap-2 my-2 md:my-0">
+              <span>商学院</span>
+              <span class="font-bold">0</span>
+              <span>-</span>
+              <span class="font-bold">2</span>
+              <span>伐木人</span>
+            </div>
+            <div class="md:w-1/4 text-right text-primary font-medium">胜</div>
+          </div>
+          
+          <div class="flex flex-col md:flex-row md:items-center p-4 border-b border-gray-100">
+            <div class="md:w-1/4 font-semibold text-accent">10月15日</div>
+            <div class="md:w-2/4 flex flex-wrap items-center justify-center md:justify-start gap-2 my-2 md:my-0">
+              <span>伐木人</span>
+              <span class="font-bold">1</span>
+              <span>-</span>
+              <span class="font-bold">1</span>
+              <span>文学院</span>
+            </div>
+            <div class="md:w-1/4 text-right text-forest font-medium">平</div>
+          </div>
+          
+          <div class="flex flex-col md:flex-row md:items-center p-4">
+            <div class="md:w-1/4 font-semibold text-accent">10月22日</div>
+            <div class="md:w-2/4 flex flex-wrap items-center justify-center md:justify-start gap-2 my-2 md:my-0">
+              <span>外语学院</span>
+              <span class="font-bold">2</span>
+              <span>-</span>
+              <span class="font-bold">0</span>
+              <span>伐木人</span>
+            </div>
+            <div class="md:w-1/4 text-right text-gray-500 font-medium">负</div>
+          </div>
+        </div>
+        
+        <div class="mt-8 p-4 bg-wood/10 rounded-lg border-l-4 border-wood">
+          <p class="text-accent"><i class="fa fa-trophy mr-2"></i> 本赛季战绩：2胜1平1负，进球6个，失球4个</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 赛事部分 -->
+<section id="matches" class="py-16 bg-gray-50">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl font-bold text-accent mb-4">近期赛事</h2>
+      <p class="text-gray-600 max-w-2xl mx-auto">关注我们的比赛日程，为伐木人加油助威</p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+      <!-- 赛事1 -->
+      <div class="bg-white rounded-xl shadow-md overflow-hidden player-card-hover">
+        <div class="p-6">
+          <div class="flex justify-between items-center mb-4">
+            <span class="bg-primary text-white text-sm font-semibold px-3 py-1 rounded-full">友谊赛</span>
+            <span class="text-gray-500">2023-11-5</span>
+          </div>
+          
+          <div class="flex justify-between items-center my-6">
+            <div class="text-center">
+              <div class="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-2">
+                <span class="font-bold text-accent">伐木人</span>
+              </div>
+              <p class="font-semibold">我方</p>
+            </div>
+            
+            <div class="text-center px-4">
+              <div class="text-2xl font-bold text-accent">VS</div>
+              <p class="text-sm text-gray-500 mt-2">14:30</p>
+            </div>
+            
+            <div class="text-center">
+              <div class="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-2">
+                <span class="font-bold text-accent">工学院</span>
+              </div>
+              <p class="font-semibold">对方</p>
+            </div>
+          </div>
+          
+          <div class="text-center">
+            <p class="text-gray-600"><i class="fa fa-map-marker mr-2 text-primary"></i> 大学主体育场</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 赛事2 -->
+      <div class="bg-white rounded-xl shadow-md overflow-hidden player-card-hover">
+        <div class="p-6">
+          <div class="flex justify-between items-center mb-4">
+            <span class="bg-forest text-white text-sm font-semibold px-3 py-1 rounded-full">联赛</span>
+            <span class="text-gray-500">2023-11-12</span>
+          </div>
+          
+          <div class="flex justify-between items-center my-6">
+            <div class="text-center">
+              <div class="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-2">
+                <span class="font-bold text-accent">天山雪豹</span>
+              </div>
+              <p class="font-semibold">对方</p>
+            </div>
+            
+            <div class="text-center px-4">
+              <div class="text-2xl font-bold text-accent">VS</div>
+              <p class="text-sm text-gray-500 mt-2">15:00</p>
+            </div>
+            
+            <div class="text-center">
+              <div class="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-2">
+                <span class="font-bold text-accent">伐木人</span>
+              </div>
+              <p class="font-semibold">我方</p>
+            </div>
+          </div>
+          
+          <div class="text-center">
+            <p class="text-gray-600"><i class="fa fa-map-marker mr-2 text-primary"></i> 大学城体育场</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+    
+  <!-- 俱乐部介绍 -->
+  <section id="club" class="py-16 bg-gradient-to-r from-accent to-accent/80 text-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold mb-4">关于我们</h2>
+          <p class="text-white/80">伐木人足球队成立于1993年，是由一群热爱足球的大学生自发组织的体育俱乐部</p>
+        </div>
+        
+        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 shadow-lg">
+          <p class="mb-4">我们的名字"伐木人"象征着团队精神和坚韧不拔的毅力。就像伐木人砍伐树木一样，我们在球场上齐心协力，攻克难关，追求胜利。</p>
+          
+          <p class="mb-4">俱乐部旨在为热爱足球的同学提供一个交流和展示的平台，通过定期训练和比赛，提高成员的足球技能，培养团队合作精神，丰富校园文化生活。</p>
+          
+          <div class="mt-8 flex flex-wrap justify-center gap-6">
+            <div class="text-center">
+              <div class="text-4xl font-bold text-wood mb-2">30+</div>
+              <p class="text-white/80">成立年限</p>
+            </div>
+            <div class="text-center">
+              <div class="text-4xl font-bold text-wood mb-2">50+</div>
+              <p class="text-white/80">活跃成员</p>
+            </div>
+            <div class="text-center">
+              <div class="text-4xl font-bold text-wood mb-2">3+</div>
+              <p class="text-white/80">年度赛事</p>
+            </div>
+            <div class="text-center">
+              <div class="text-4xl font-bold text-wood mb-2">8</div>
+              <p class="text-white/80">冠军奖杯</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 页脚 -->
+  <footer class="bg-accent text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="text-xl font-bold mb-4 flex items-center">
+            <i class="fa fa-tree text-wood mr-2"></i> 伐木人足球队
+          </h3>
+          <p class="text-white/70 mb-4">团结、拼搏、成长，我们是伐木人！</p>
+          <div class="flex space-x-4">
+            <a href="#" class="text-white hover:text-wood transition-colors">
+              <i class="fa fa-weixin text-xl"></i>
+            </a>
+            <a href="#" class="text-white hover:text-wood transition-colors">
+              <i class="fa fa-weibo text-xl"></i>
+            </a>
+            <a href="#" class="text-white hover:text-wood transition-colors">
+              <i class="fa fa-instagram text-xl"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div>
+          <h3 class="text-xl font-bold mb-4">快速链接</h3>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-white/70 hover:text-wood transition-colors">首页</a></li>
+            <li><a href="#team" class="text-white/70 hover:text-wood transition-colors">球队成员</a></li>
+            <li><a href="#matches" class="text-white/70 hover:text-wood transition-colors">赛事安排</a></li>
+            <li><a href="#training" class="text-white/70 hover:text-wood transition-colors">训练计划</a></li>
+            <li><a href="#club" class="text-white/70 hover:text-wood transition-colors">关于俱乐部</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="text-xl font-bold mb-4">联系我们</h3>
+          <ul class="space-y-2">
+            <li class="flex items-start">
+              <i class="fa fa-map-marker text-wood mt-1 mr-3"></i>
+              <span class="text-white/70">北京林业大学</span>
+            </li>
+            <li class="flex items-center">
+              <i class="fa fa-envelope text-wood mr-3"></i>
+              <span class="text-white/70">lumberjacks@university.edu</span>
+            </li>
+            <li class="flex items-center">
+              <i class="fa fa-phone text-wood mr-3"></i>
+              <span class="text-white/70">138-XXXX-XXXX</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="border-t border-white/10 mt-10 pt-6 text-center text-white/50 text-sm">
+        <p>© 2025 伐木人足球队 版权所有 | 大学足球俱乐部</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 回到顶部按钮 -->
+  <button id="back-to-top" class="fixed bottom-8 right-8 bg-primary hover:bg-primary/90 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 opacity-0 invisible">
+    <i class="fa fa-arrow-up"></i>
+  </button>
+
+  <script>
+    // 导航栏滚动效果
+    const navbar = document.getElementById('navbar');
+    const logoContainer = document.getElementById('logo-container');
+    
+    // 初始设置logo大小
+    logoContainer.classList.add('logo-large');
+    
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        navbar.classList.add('py-2', 'shadow-md');
+        navbar.classList.remove('py-3');
+        logoContainer.classList.remove('logo-large');
+        logoContainer.classList.add('logo-small');
+      } else {
+        navbar.classList.remove('py-2', 'shadow-md');
+        navbar.classList.add('py-3');
+        logoContainer.classList.add('logo-large');
+        logoContainer.classList.remove('logo-small');
+      }
+    });
+    
+    // 移动端菜单切换
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    mobileMenuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+      // 切换图标
+      const icon = mobileMenuButton.querySelector('i');
+      if (icon.classList.contains('fa-bars')) {
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-times');
+      } else {
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+      }
+    });
+    
+    // 平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        // 关闭移动菜单（如果打开）
+        if (!mobileMenu.classList.contains('hidden')) {
+          mobileMenu.classList.add('hidden');
+          const icon = mobileMenuButton.querySelector('i');
+          icon.classList.remove('fa-times');
+          icon.classList.add('fa-bars');
+        }
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 100,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+    
+    // 回到顶部按钮
+    const backToTopButton = document.getElementById('back-to-top');
+    
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 500) {
+        backToTopButton.classList.remove('opacity-0', 'invisible');
+        backToTopButton.classList.add('opacity-100', 'visible');
+      } else {
+        backToTopButton.classList.add('opacity-0', 'invisible');
+        backToTopButton.classList.remove('opacity-100', 'visible');
+      }
+    });
+    
+    backToTopButton.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
+</body>
+
+</html>
